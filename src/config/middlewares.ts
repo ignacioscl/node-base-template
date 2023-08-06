@@ -13,7 +13,6 @@ export const signInCheckerMiddleware = async (req: express.Request, res: express
             const idUser = decoded.data?.id;
             if (idUser) {
                 (req as any).user = decoded.data;
-                console.log("pasa" + idUser)
                 /*isValidSession(idUser, appName, deviceId, (session) => {
                     if (!session.isValid) {
                         const lastSignTime = session.lastSign.date.getTime();

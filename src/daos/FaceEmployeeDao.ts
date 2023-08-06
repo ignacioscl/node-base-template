@@ -3,6 +3,7 @@ import { AppDataSource } from '../config/mysqlDatabase';
 import FaceEmployee from '../entities/FaceEmployee';
 import FaceEmployeeFilter from '../filters/FaceEmployeeFilter';
 import config from '../config/config';
+import BussinessError from '../types/exceptions/BussinessError';
 
 
 export class  FaceEmployeeDao{
@@ -19,7 +20,7 @@ export class  FaceEmployeeDao{
         .getOne();
         
         
-        return face.toJSON();
+        return (face ? face.toJSON() : null);
     }
     public fetch = async (filter : FaceEmployeeFilter) : Promise<[FaceEmployee[],number]> => {
         filter.currentPage = (!filter.currentPage ? 0 : filter.currentPage);
@@ -62,7 +63,7 @@ export class  FaceEmployeeDao{
 
 
     public saveUpdate = async (face : FaceEmployee) : Promise<FaceEmployee> => {
-        return await this.manager.save(FaceEmployee,face)
+        return await this.manager.save(FaceEmployee,face);
     }
 
 
@@ -77,7 +78,17 @@ export class  FaceEmployeeDao{
             .where("id_employee = :id", { id: idEmployee })
             .execute();
     }
+    public delete = async (idEmployee : number) : Promise<void> => {
 
+        const queryBuilder = AppDataSource.manager
+        .createQueryBuilder()
+        .delete()
+        .from(FaceEmployee)
+        .where("id_employee = :idEmployee", { idEmployee });
+ 
+        await queryBuilder.execute();
+        
+    }
     
 }
 

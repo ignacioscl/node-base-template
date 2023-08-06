@@ -18,9 +18,9 @@ export default class Usuarios extends CustomBaseEntity  {
     @Column({ type: "varchar" })
     nombre: string;
 
-    constructor() {
+    constructor(id?:number) {
         super();
-        this.id                 = null;
+        this.id                 = id;
         this.login              = null;
         this.email              = null;
         this.nombre             = null;

@@ -12,7 +12,7 @@ export default class FaceEmployee extends CustomBaseEntity  {
     @JoinColumn([{ name: 'id_employee', referencedColumnName: 'id' }])
     user: Usuarios;
 
-    @Column({ name: 'create_date', type: "datetime" })
+    @Column({ name: 'create_date', type: "datetime",insert:false,update:false })
     createDate: Date;
 
     @Column({ name: 'is_active', type: "tinyint" })
