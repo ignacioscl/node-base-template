@@ -11,7 +11,9 @@ const config = {
   dbHost: process.env.DB_HOST,
   dbUser: process.env.DB_USER,
   dbPassword: process.env.DB_PASSWORD,
-  pageSize: 25
+  pageSize: 25,
+  jsonLimit:process.env.JSON_LIMIT,
+  urlencodeLimit:process.env.URLENCODE_LIMIT,
 };
 
 export default config;

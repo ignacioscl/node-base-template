@@ -5,12 +5,14 @@ import BussinessError from './types/exceptions/BussinessError';
 import { jsonResponseErrorMiddleware, jsonResponseMiddleware, protegerRutas } from './config/middlewares';
 import { AppDataSource } from './config/mysqlDatabase';
 import facesRouter from './routes/FacesRoutes';
+import config from './config/config';
 
 const app = express();
 const port = 3000;
 
 
-
+app.use(bodyParser.json({ limit: config.jsonLimit }));
+app.use(bodyParser.urlencoded({ limit: config.urlencodeLimit, extended: true }));
 app.use(jsonResponseMiddleware)
 app.use(protegerRutas);
 

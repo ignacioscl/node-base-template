@@ -14,7 +14,7 @@ export class FacesController {
             const idEmployee  = req.body.idEmployee;
             const image       = req.body.image;
             if (idEmployee) {
-              res.json(await this.service.addFace(idEmployee,""));
+              res.json(await this.service.addFace(idEmployee,image));
             } else {
               throw new Error("Not user logued");
             }
