@@ -4,6 +4,7 @@ import FaceEmployee from '../entities/FaceEmployee';
 import FaceEmployeeFilter from '../filters/FaceEmployeeFilter';
 import config from '../config/config';
 import BussinessError from '../types/exceptions/BussinessError';
+import FileFaceEmployee from '../entities/FileFaceEmployee';
 
 
 export class  FaceEmployeeDao{
@@ -16,6 +17,7 @@ export class  FaceEmployeeDao{
         const face : FaceEmployee = await AppDataSource.manager
         .createQueryBuilder(FaceEmployee, "fe")
         .leftJoinAndSelect("fe.user", "u")
+        .leftJoinAndSelect("fe.fileFaceEmployees", "ffe")
         .where("fe.id_employee = :id", { id: id })
         .getOne();
         
@@ -66,8 +68,12 @@ export class  FaceEmployeeDao{
         return await this.manager.save(FaceEmployee,face);
     }
 
-
-
+    public addFile = async (idFace:number) : Promise<FileFaceEmployee> => {
+        return await this.manager.save(FileFaceEmployee,new FileFaceEmployee(null,new FaceEmployee(idFace)));
+    }
+    public updateFile = async (file:FileFaceEmployee) : Promise<void> => {
+        await this.manager.save(FileFaceEmployee,file);
+    }
     public updateStatus = async (idEmployee : number,isActive: 0|1) : Promise<void> => {
         await this.manager
             .createQueryBuilder()

@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,OneToMany } from "typeorm";
 import { CustomBaseEntity } from "./CustomBaeEntity";
 import Usuarios from "./Usuarios";
+import FileFaceEmployee from "./FileFaceEmployee";
 
 @Entity({ database: 'srssui5_face-recognition', name: 'FACE_EMPLOYEE' })
 export default class FaceEmployee extends CustomBaseEntity  {
@@ -18,9 +19,12 @@ export default class FaceEmployee extends CustomBaseEntity  {
     @Column({ name: 'is_active', type: "tinyint" })
     isActive: number;
     
-    constructor() {
+    @OneToMany(type => FileFaceEmployee, fileFaceEmployees => fileFaceEmployees.faceEmployee)
+    fileFaceEmployees?: FileFaceEmployee[];
+
+    constructor(id?:number) {
         super();
-        this.id                 = null;
+        this.id                 = id;
         this.user               = null;
         this.createDate         = null;
         this.isActive           = 1;

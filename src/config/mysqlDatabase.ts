@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import config from './config';
 import FaceEmployee from '../entities/FaceEmployee';
 import Usuarios from '../entities/Usuarios';
+import FileFaceEmployee from '../entities/FileFaceEmployee';
 
 // Ejemplo de uso de las variables de entorno
 const dbHost = config.dbHost;
@@ -17,5 +18,5 @@ export const AppDataSource = new DataSource({
   password: dbPassword,/*
   database: process.env.DB_NAME || "myapp",*/
   //logging: ["query"],
-  entities: [FaceEmployee,Usuarios], // Register your entity here
+  entities: [FaceEmployee,Usuarios,FileFaceEmployee], // Register your entity here
 })

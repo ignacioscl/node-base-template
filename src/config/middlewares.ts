@@ -106,8 +106,8 @@ export const jsonResponseErrorMiddleware = (err:  Error, req:any, res:any, next:
      res.json = function (data:any) {
        const wrappedData = {
          data:null,
-         status: res.statusCode,
-         errorResponse: {message: err.message, stack: err.stack}
+         status: (err as any).statusCode,
+         errorResponse: {message: err.message, stack: ((err as any).statusCode < 100 ? '' : err.stack)}
        };
        return originalJson(wrappedData);
      };
